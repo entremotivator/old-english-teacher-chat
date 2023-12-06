@@ -11,7 +11,7 @@ from dotenv import load_dotenv
 tru = Tru()
 load_dotenv()
 # Access a specific environment variable
-google_credentials_path = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
+GENERATIVE_AI_API_KEY = os.getenv("GENERATIVE_AI_API_KEY")
 openai_api_key = os.getenv("OPENAI_API_KEY")
 huggingface_api_key = os.getenv("HUGGINGFACE_API_KEY")
 
