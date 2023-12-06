@@ -6,14 +6,6 @@ from trulens_eval.feedback import Groundedness
 from trulens_eval.feedback.provider.openai import OpenAI as fOpenAI
 import numpy as np
 
-# Sidebar for OpenAI API key
-openai_api_key = st.sidebar.text_input("Enter OpenAI API Key:", type="password", key="openai_api_key")
-st.secrets["openai_api_key"] = openai_api_key
-
-# Sidebar for GENERATIVE_AI_API_KEY
-generative_ai_api_key = st.sidebar.text_input("Enter Generative AI API Key:", type="password", key="generative_ai_api_key")
-st.secrets["GENERATIVE_AI_API_KEY"] = generative_ai_api_key
-
 # Trulens setup
 tru = Tru()
 
