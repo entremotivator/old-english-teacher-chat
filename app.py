@@ -10,9 +10,6 @@ from dotenv import load_dotenv
 # Trulens setup
 tru = Tru()
 load_dotenv()
-# Access a specific environment variable
-openai_api_key = os.getenv("OPENAI_API_KEY")
-huggingface_api_key = os.getenv("HUGGINGFACE_API_KEY")
 
 # Existing code for Old English Teacher Chat
 st.header('Old English Teacher Chat')
