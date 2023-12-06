@@ -19,7 +19,7 @@ tru = Tru()
 
 # Existing code for Old English Teacher Chat
 st.header('Old English Teacher Chat')
-palm.configure(api_key=st.secrets["GENERATIVE_AI_API_KEY"])
+palm.configure(api_key=st.secrets["AIzaSyAANEPA1UF6WE4O_0GQh2s27iBT4VrN0Ag"])
 if "model" not in st.session_state:
     st.session_state["model"] = "models/chat-bison-001"
 
