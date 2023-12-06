@@ -5,9 +5,15 @@ from trulens_eval import Tru, TruCustomApp, Feedback, Select
 from trulens_eval.feedback import Groundedness
 from trulens_eval.feedback.provider.openai import OpenAI as fOpenAI
 import numpy as np
+from dotenv import load_dotenv
 
 # Trulens setup
 tru = Tru()
+load_dotenv()
+# Access a specific environment variable
+google_credentials_path = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
+openai_api_key = os.getenv("OPENAI_API_KEY")
+huggingface_api_key = os.getenv("HUGGINGFACE_API_KEY")
 
 # Existing code for Old English Teacher Chat
 st.header('Old English Teacher Chat')
