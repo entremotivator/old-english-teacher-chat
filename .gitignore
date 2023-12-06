@@ -1,6 +1,0 @@
-your-LOCAL-repository/
-├── .streamlit/
-│   ├── config.toml
-│   └── secrets.toml # Make sure to gitignore this!
-├── your_app.py
-└── requirements.txt
