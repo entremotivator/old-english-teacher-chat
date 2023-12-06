@@ -65,8 +65,7 @@ if prompt := st.chat_input("What is up?"):
 # Trulens integration
 class RAG_from_scratch:
     # ... (your existing RAG_from_scratch class)
-
-fopenai = fOpenAI()
+    fopenai = fOpenAI()
 grounded = Groundedness(groundedness_provider=fopenai)
 f_groundedness = (
     Feedback(grounded.groundedness_measure_with_cot_reasons, name="Groundedness")
