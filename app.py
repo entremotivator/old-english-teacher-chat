@@ -8,7 +8,7 @@ import numpy as np
 
 # Sidebar for OpenAI API key
 openai_api_key = st.sidebar.text_input("Enter OpenAI API Key:", type="password", key="openai_api_key")
-st.secrets["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"] = openai_api_key
+st.secrets["openai_api_key"] = openai_api_key
 
 # Sidebar for GENERATIVE_AI_API_KEY
 generative_ai_api_key = st.sidebar.text_input("Enter Generative AI API Key:", type="password", key="generative_ai_api_key")
@@ -19,7 +19,7 @@ tru = Tru()
 
 # Existing code for Old English Teacher Chat
 st.header('Old English Teacher Chat')
-palm.configure(api_key=st.secrets["AIzaSyAANEPA1UF6WE4O_0GQh2s27iBT4VrN0Ag"])
+palm.configure(api_key=st.secrets["GENERATIVE_AI_API_KEY"])
 if "model" not in st.session_state:
     st.session_state["model"] = "models/chat-bison-001"
 
