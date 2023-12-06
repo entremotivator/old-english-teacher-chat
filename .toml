@@ -1,1 +1,3 @@
-pas
+HUGGINGFACE_API_KEY=&quot;your-huggingface-api-key&quot;
+OPENAI_API_KEY=&quot;your-openai-api-key&quot;
+GOOGLE_APPLICATION_CREDENTIALS=&quot;path/to/your/google-credentials.json&quot;
