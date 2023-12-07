@@ -3,6 +3,7 @@ import time
 from trulens_eval import Tru, Feedback, Select
 from trulens_eval.feedback import Groundedness
 from trulens_eval.feedback.provider.openai import OpenAI as fOpenAI
+from trulens import Rag  # Assuming 'Rag' is the correct class, adjust as needed
 import numpy as np
 from dotenv import load_dotenv
 
@@ -16,11 +17,11 @@ load_dotenv()
 # Configure Palm
 palm.configure(api_key=st.secrets.get("GENERATIVE_AI_API_KEY", ""))
 
-# Existing code for Old English Teacher Chat
-
+# Trulens integration
 class RAG_from_scratch:
     def __init__(self):
         self.fopenai = fOpenAI()  # Instantiate fopenai here
+        self.rag = Rag()  # Replace 'Rag' with the actual class from Trulens you're using
         self.grounded = Groundedness(groundedness_provider=self.fopenai)
         self.f_groundedness = (
             Feedback(self.grounded.groundedness_measure_with_cot_reasons, name="Groundedness")
@@ -88,7 +89,7 @@ if prompt := st.text_area("What is up?"):
 # Trulens integration
 query = st.text_input("Ask Trulens a question:")
 if query:
-    rag_instance.grounded.query(query)
+    rag_instance.rag.query(query)
 
 # Display Trulens leaderboard
 st.write(tru.get_leaderboard(app_ids=["RAG v1"]))
@@ -96,3 +97,4 @@ st.write(tru.get_leaderboard(app_ids=["RAG v1"]))
 # Trulens dashboard
 if st.button("Open TruLens Dashboard", key="trulens_dashboard"):
     tru.run_dashboard()
+
