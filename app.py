@@ -12,10 +12,9 @@ tru = Tru()
 load_dotenv()
 
 # Existing code for Old English Teacher Chat
-st.header('Old English Teacher Chat')
 
-# Ensure that 'GENERATIVE_AI_API_KEY' is present in the secrets.toml file
-palm.configure(api_key=st.secrets["GENERATIVE_AI_API_KEY"])
+# Configure Palm
+palm.configure(api_key=st.secrets.get("GENERATIVE_AI_API_KEY"))
 
 if "model" not in st.session_state:
     st.session_state["model"] = "models/chat-bison-001"
