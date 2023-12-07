@@ -1,21 +1,20 @@
 import streamlit as st
 import time
-import google.generativeai as palm
-import os
-from trulens_eval import Tru, TruCustomApp, Feedback, Select
+from trulens_eval import Tru, Feedback, Select
 from trulens_eval.feedback import Groundedness
 from trulens_eval.feedback.provider.openai import OpenAI as fOpenAI
 import numpy as np
 from dotenv import load_dotenv
-import chromadb
 
+# Assuming that 'palm' is a module from 'google.generativeai' (check this)
+from google.generativeai import palm
 
 # Trulens setup
 tru = Tru()
 load_dotenv()
 
 # Configure Palm
-palm.configure(api_key=st.secrets.get("GENERATIVE_AI_API_KEY"))
+palm.configure(api_key=st.secrets.get("GENERATIVE_AI_API_KEY", ""))
 
 # Existing code for Old English Teacher Chat
 
