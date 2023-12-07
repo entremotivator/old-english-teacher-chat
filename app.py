@@ -60,33 +60,32 @@ if prompt := st.chat_input("What is up?"):
 
 # Trulens integration
 class RAG_from_scratch:
-    # ... (your existing RAG_from_scratch class)
-    fopenai = fOpenAI()
-grounded = Groundedness(groundedness_provider=fopenai)
-f_groundedness = (
-    Feedback(grounded.groundedness_measure_with_cot_reasons, name="Groundedness")
-    .on(Select.RecordCalls.retrieve.rets.collect())
-    .on_output()
-    .aggregate(grounded.grounded_statements_aggregator)
-)
+    fopenai = fOpenAI()  # Instantiate fopenai here
+    grounded = Groundedness(groundedness_provider=fopenai)
+    f_groundedness = (
+        Feedback(grounded.groundedness_measure_with_cot_reasons, name="Groundedness")
+        .on(Select.RecordCalls.retrieve.rets.collect())
+        .on_output()
+        .aggregate(grounded.grounded_statements_aggregator)
+    )
 
-f_qa_relevance = (
-    Feedback(fopenai.relevance_with_cot_reasons, name="Answer Relevance")
-    .on(Select.RecordCalls.retrieve.args.query)
-    .on_output()
-)
+    f_qa_relevance = (
+        Feedback(fopenai.relevance_with_cot_reasons, name="Answer Relevance")
+        .on(Select.RecordCalls.retrieve.args.query)
+        .on_output()
+    )
 
-f_context_relevance = (
-    Feedback(fopenai.qs_relevance_with_cot_reasons, name="Context Relevance")
-    .on(Select.RecordCalls.retrieve.args.query)
-    .on(Select.RecordCalls.retrieve.rets.collect())
-    .aggregate(np.mean)
-)
+    f_context_relevance = (
+        Feedback(fopenai.qs_relevance_with_cot_reasons, name="Context Relevance")
+        .on(Select.RecordCalls.retrieve.args.query)
+        .on(Select.RecordCalls.retrieve.rets.collect())
+        .aggregate(np.mean)
+    )
 
-rag = RAG_from_scratch()
-tru_rag = TruCustomApp(rag,
-                      app_id='RAG v1',
-                      feedbacks=[f_groundedness, f_qa_relevance, f_context_relevance])
+    rag = RAG_from_scratch()
+    tru_rag = TruCustomApp(rag,
+                          app_id='RAG v1',
+                          feedbacks=[f_groundedness, f_qa_relevance, f_context_relevance])
 
 with tru_rag as recording:
     rag.query("When was the University of Washington founded?")
