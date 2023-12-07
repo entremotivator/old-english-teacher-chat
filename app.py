@@ -84,7 +84,10 @@ class RAG_from_scratch:
         )
 
 rag_instance = RAG_from_scratch()
-rag_instance.rag.query("When was the University of Washington founded?")
 
+# Make sure to adjust this query based on your specific use case
+rag_instance.grounded.query("When was the University of Washington founded?")
+
+# Continue with the rest of your Streamlit app code
 st.write(tru.get_leaderboard(app_ids=["RAG v1"]))
 tru.run_dashboard()
