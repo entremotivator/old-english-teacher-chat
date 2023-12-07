@@ -6,7 +6,6 @@ from trulens_eval.feedback import Groundedness
 from trulens_eval.feedback.provider.openai import OpenAI as fOpenAI
 import numpy as np
 from dotenv import load_dotenv
-from google.generativeai import palm
 
 # Trulens setup
 tru = Tru()
