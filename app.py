@@ -84,9 +84,7 @@ class RAG_from_scratch:
         )
 
 rag_instance = RAG_from_scratch()
-
-with rag_instance:
-    rag_instance.rag.query("When was the University of Washington founded?")
+rag_instance.rag.query("When was the University of Washington founded?")
 
 st.write(tru.get_leaderboard(app_ids=["RAG v1"]))
 tru.run_dashboard()
