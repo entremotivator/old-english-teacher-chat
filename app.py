@@ -1,5 +1,6 @@
 import streamlit as st
 import google.generativeai as palm
+import pprint
 import time
 from trulens_eval import Tru, TruCustomApp, Feedback, Select
 from trulens_eval.feedback import Groundedness
