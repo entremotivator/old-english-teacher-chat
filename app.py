@@ -7,6 +7,8 @@ from trulens_eval.feedback import Groundedness
 from trulens_eval.feedback.provider.openai import OpenAI as fOpenAI
 import numpy as np
 from dotenv import load_dotenv
+import chromadb
+
 
 # Trulens setup
 tru = Tru()
