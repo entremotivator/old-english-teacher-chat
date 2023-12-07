@@ -1,6 +1,6 @@
+import streamlit as st
 import google.generativeai as palm
 import time
-import streamlit as st
 from trulens_eval import Tru, TruCustomApp, Feedback, Select
 from trulens_eval.feedback import Groundedness
 from trulens_eval.feedback.provider.openai import OpenAI as fOpenAI
@@ -10,13 +10,13 @@ from dotenv import load_dotenv
 # Trulens setup
 tru = Tru()
 load_dotenv()
-# passwordkey
-streamlit run app.py --secrets secrets.toml
-
 
 # Existing code for Old English Teacher Chat
 st.header('Old English Teacher Chat')
+
+# Ensure that 'GENERATIVE_AI_API_KEY' is present in the secrets.toml file
 palm.configure(api_key=st.secrets["GENERATIVE_AI_API_KEY"])
+
 if "model" not in st.session_state:
     st.session_state["model"] = "models/chat-bison-001"
 
