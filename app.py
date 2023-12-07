@@ -10,6 +10,9 @@ from dotenv import load_dotenv
 # Trulens setup
 tru = Tru()
 load_dotenv()
+# passwordkey
+streamlit run app.py --secrets secrets.toml
+
 
 # Existing code for Old English Teacher Chat
 st.header('Old English Teacher Chat')
