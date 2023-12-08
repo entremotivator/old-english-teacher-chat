@@ -9,10 +9,10 @@ import google.generativeai as palm
 tru = Tru()
 load_dotenv()
 
-# Configure Palm
-palm.configure(api_key=st.secrets.get("GENERATIVE_AI_API_KEY", ""))
-
-# Old English Teacher Chat
+st.header('Old English Teacher Chat')
+palm.configure(api_key= st.secrets["GENERATIVE_AI_API_KEY"])
+if "model" not in st.session_state:
+    st.session_state["model"] = "models/chat-bison-001"
 
 context = "You're a native Anglo-Saxon, once living in ancient England. you're teleported to the present era of modern United Kingdom. You're now teaching Old English to the present modern era English speaking."
 
