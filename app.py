@@ -43,8 +43,6 @@ if prompt := st.chat_input("What is up?"):
             top_k=40,
             top_p=0.95,
         ).last
-
-        if teacher_response:
             # Simulate stream of response with milliseconds delay
             for chunk in teacher_response.split():
                 full_response += chunk + " "
