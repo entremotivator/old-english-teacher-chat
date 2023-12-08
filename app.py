@@ -5,12 +5,18 @@ from trulens_eval import Feedback, OpenAI, Tru, TruLlama, Select, OpenAI as fOpe
 from trulens_eval.feedback import GroundTruthAgreement, Groundedness
 from dotenv import load_dotenv
 import google.generativeai as palm
+import openai
+import os
+
 
 tru = Tru()
 # tru.reset_database() # if needed
 
 st.header('Old English Teacher Chat')
+
 palm.configure(api_key= st.secrets["GENERATIVE_AI_API_KEY"])
+os.environ["OPENAI_API_KEY"] = "..."
+openai.api_key = os.environ["OPENAI_API_KEY"]
 if "model" not in st.session_state:
     st.session_state["model"] = "models/chat-bison-001"
 
