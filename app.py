@@ -1,9 +1,7 @@
 import streamlit as st
 import time
-from trulens_eval import Tru, Feedback, Select
 from trulens_eval.feedback import Groundedness
 from trulens_eval.feedback.provider.openai import OpenAI as fOpenAI
-from trulens import Rag  # Assuming 'Rag' is the correct class, adjust as needed
 from trulens_eval import Feedback, LiteLLM, Tru, TruChain, Huggingface
 import numpy as np
 from dotenv import load_dotenv
