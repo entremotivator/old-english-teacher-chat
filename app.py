@@ -1,7 +1,8 @@
 import streamlit as st
 import time
-from trulens_eval.feedback.provider.openai import OpenAI as fOpenAI
 from trulens_eval import Tru
+from trulens_eval import Feedback, OpenAI, Tru, TruLlama, Select, OpenAI as fOpenAI
+from trulens_eval.feedback import GroundTruthAgreement, Groundedness
 from dotenv import load_dotenv
 import google.generativeai as palm
 
