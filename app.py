@@ -3,7 +3,6 @@ import time
 from trulens_eval.feedback import Groundedness
 from trulens_eval.feedback.provider.openai import OpenAI as fOpenAI
 from trulens_eval import Feedback, LiteLLM, Tru, TruChain, Huggingface
-import numpy as np
 from dotenv import load_dotenv
 
 # Assuming that 'palm' is a module from 'google.generativeai' (check this)
