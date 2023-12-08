@@ -4,8 +4,6 @@ from trulens_eval.feedback import Groundedness
 from trulens_eval.feedback.provider.openai import OpenAI as fOpenAI
 from trulens_eval import Feedback, LiteLLM, Tru, TruChain, Huggingface
 from dotenv import load_dotenv
-
-# Assuming that 'palm' is a module from 'google.generativeai' (check this)
 from google.generativeai import palm
 
 # Trulens setup
