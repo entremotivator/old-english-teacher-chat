@@ -29,7 +29,8 @@ if "messages" not in st.session_state:
 
 # Trulens dashboard on the sidebar
 with st.sidebar:
-    trulens_dashboard = tru.run_dashboard(app_ids=["RAG v1"])
+    trulens_dashboard = tru.run_dashboard()
+
 
 # Display chat messages
 for message in st.session_state.messages:
