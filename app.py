@@ -63,7 +63,3 @@ if st.button("Open TruLens Dashboard in New Tab", key="trulens_dashboard"):
     tru_dashboard_url = tru.get_dashboard_url()
     st.write(f'<a href="{tru_dashboard_url}" target="_blank">Open TruLens Dashboard</a>', unsafe_allow_html=True)
 
-# Add an "Enter" button to submit the user's input
-if st.button("Enter"):
-    # Handle the submission logic here, if needed
-    pass
