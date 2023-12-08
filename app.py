@@ -5,9 +5,6 @@ from trulens_eval import Tru
 from dotenv import load_dotenv
 import google.generativeai as palm
 
-# Trulens setup
-tru = Tru()
-load_dotenv()
 
 st.header('Old English Teacher Chat')
 palm.configure(api_key= st.secrets["GENERATIVE_AI_API_KEY"])
@@ -52,7 +49,9 @@ if prompt := st.chat_input("What is up?"):
         message_placeholder.markdown(full_response)
     # Add assistant response to chat history
     st.session_state.messages.append({"role": "teacher", "content": full_response})
-
+# Trulens setup
+tru = Tru()
+load_dotenv()
 
 # Continue with the rest of your Streamlit app code
 st.write(tru.get_leaderboard(app_ids=["RAG v1"]))
