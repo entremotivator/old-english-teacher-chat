@@ -13,33 +13,6 @@ load_dotenv()
 # Configure Palm
 palm.configure(api_key=st.secrets.get("GENERATIVE_AI_API_KEY", ""))
 
-# Trulens integration
-class RAG_from_scratch:
-    def __init__(self):
-        self.fopenai = fOpenAI()  # Instantiate fopenai here
-        self.rag = Rag()  # Replace 'Rag' with the actual class from Trulens you're using
-        self.grounded = Groundedness(groundedness_provider=self.fopenai)
-        self.f_groundedness = (
-            Feedback(self.grounded.groundedness_measure_with_cot_reasons, name="Groundedness")
-            .on(Select.RecordCalls.retrieve.rets.collect())
-            .on_output()
-            .aggregate(self.grounded.grounded_statements_aggregator)
-        )
-
-        self.f_qa_relevance = (
-            Feedback(self.fopenai.relevance_with_cot_reasons, name="Answer Relevance")
-            .on(Select.RecordCalls.retrieve.args.query)
-            .on_output()
-        )
-
-        self.f_context_relevance = (
-            Feedback(self.fopenai.qs_relevance_with_cot_reasons, name="Context Relevance")
-            .on(Select.RecordCalls.retrieve.args.query)
-            .on(Select.RecordCalls.retrieve.rets.collect())
-            .aggregate(np.mean)
-        )
-
-rag_instance = RAG_from_scratch()
 
 # Old English Teacher Chat
 
@@ -82,11 +55,34 @@ if prompt := st.text_area("What is up?"):
     # Add assistant response to chat history
     st.session_state.messages.append({"role": "teacher", "content": full_response})
 
-# Trulens integration
-query = st.text_input("Ask Trulens a question:")
-if query:
-    rag_instance.rag.query(query)
+ # tru.run_dashboard()
 
+    def ask_question(self, user_msg) -> str:
+        rec = None
+        with self.chain_recorder as recorder:
+            resp = self.conversation({"question": user_msg})
+            rec = recorder.get()
+
+        pii_detected = False
+        conciseness = 0.0
+        if rec:
+            for feedback_future in  as_completed(rec.feedback_results):
+                feedback, feedback_result = feedback_future.result()
+                
+                print(f"feedback name: {feedback.name}\n result: {feedback_result.result}")
+
+                if feedback.name == "pii_detection" and feedback_result.result != None:
+                    pii_detected = True
+                
+                if feedback.name == "conciseness":
+                    conciseness = float(feedback_result.result)
+        
+        if pii_detected:
+            return "I'm sorry but personal information was detected in your question. Please remove any personal information."
+        elif conciseness < 0.5:
+            return "Please restate your question in a way the AI can understand and give a better answer"
+        else:
+            return resp["answer"]
 # Display Trulens leaderboard
 st.write(tru.get_leaderboard(app_ids=["RAG v1"]))
 
