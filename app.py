@@ -58,8 +58,7 @@ if prompt := st.text_area("What is up?"):
         # Add assistant response to chat history
         st.session_state.messages.append({"role": "teacher", "content": full_response})
 
-# Trulens dashboard
-if st.button("Open TruLens Dashboard in New Tab", key="trulens_dashboard"):
-    tru_dashboard_url = tru.get_dashboard_url()
-    st.write(f'<a href="{tru_dashboard_url}" target="_blank">Open TruLens Dashboard</a>', unsafe_allow_html=True)
+# Continue with the rest of your Streamlit app code
+st.write(tru.get_leaderboard(app_ids=["RAG v1"]))
+tru.run_dashboard()
 
