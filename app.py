@@ -1,17 +1,24 @@
-import google.generativeai as palm
-import time
 import streamlit as st
+import time
+from trulens_eval.feedback.provider.openai import OpenAI as fOpenAI
+from trulens_eval import Tru
+from dotenv import load_dotenv
+import google.generativeai as palm
+
+# Set up Trulens
+tru = Tru()
+load_dotenv()
 
 st.header('Old English Teacher Chat')
-palm.configure(api_key= st.secrets["GENERATIVE_AI_API_KEY"])
+palm.configure(api_key=st.secrets["GENERATIVE_AI_API_KEY"])
 if "model" not in st.session_state:
     st.session_state["model"] = "models/chat-bison-001"
 
-context = "You're a native Anglo-Saxon, once living in ancient England. you're teleported to the present era of modern United Kingdom. You're now teaching Old English to the present modern era english speaking."
+context = "You're a native Anglo-Saxon, once living in ancient England. you're teleported to the present era of modern United Kingdom. You're now teaching Old English to the present modern era English speaking."
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
-    
+
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
@@ -24,7 +31,7 @@ if prompt := st.chat_input("What is up?"):
     with st.chat_message("user"):
         st.markdown(prompt)
 
-# Display assistant response in chat message container
+    # Display assistant response in chat message container
     with st.chat_message("teacher"):
         message_placeholder = st.empty()
         full_response = ""
@@ -46,3 +53,9 @@ if prompt := st.chat_input("What is up?"):
     # Add assistant response to chat history
     st.session_state.messages.append({"role": "teacher", "content": full_response})
 
+# Trulens dashboard integration
+if st.button("Show Trulens Dashboard"):
+    st.components.v1.trulens_dashboard(tru)
+
+# Continue with the rest of your Streamlit app code
+st.write(tru.get_leaderboard(app_ids=["RAG v1"]))
