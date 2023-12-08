@@ -43,18 +43,16 @@ if prompt := st.chat_input("What is up?"):
             top_k=40,
             top_p=0.95,
         ).last
-            # Simulate stream of response with milliseconds delay
-            for chunk in teacher_response.split():
-                full_response += chunk + " "
-                time.sleep(0.05)
-                # Add a blinking cursor to simulate typing
-                message_placeholder.markdown(full_response + "▌")
-            message_placeholder.markdown(full_response)
-        else:
-            st.warning("Sorry, I couldn't generate a response at the moment. Please try again.")
+        # Simulate stream of response with milliseconds delay
+        for chunk in teacher_response.split():
+            full_response += chunk + " "
+            time.sleep(0.05)
+            # Add a blinking cursor to simulate typing
+            message_placeholder.markdown(full_response + "▌")
+        message_placeholder.markdown(full_response)
+    # Add assistant response to chat history
+    st.session_state.messages.append({"role": "teacher", "content": full_response})
 
-        # Add assistant response to chat history
-        st.session_state.messages.append({"role": "teacher", "content": full_response})
 
 # Continue with the rest of your Streamlit app code
 st.write(tru.get_leaderboard(app_ids=["RAG v1"]))
