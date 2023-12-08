@@ -133,16 +133,3 @@ f_groundtruth = Feedback(
 st.write(tru.get_leaderboard(app_ids=["RAG v1"]))
 tru.run_dashboard(
 #     _dev=trulens_path, force=True  # if running from github
-)
-tru_agent = TruLlama(agent,
-    app_id='YelpAgent',
-    tags = "agent prototype",
-    feedbacks = [
-        f_qa_relevance,
-        f_groundtruth,
-        f_context_relevance,
-        f_groundedness,
-        f_query_translation,
-        f_ratings_usage
-    ]
-)
