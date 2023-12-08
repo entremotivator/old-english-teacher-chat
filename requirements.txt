@@ -1,5 +1,4 @@
 attrs==23.1.0
-cachetools==5.3.1
 colorama==0.4.6
 grpcio==1.56.0
 markdown-it-py==3.0.0
