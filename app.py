@@ -1,8 +1,7 @@
 import streamlit as st
 import time
-from trulens_eval.feedback import Groundedness
 from trulens_eval.feedback.provider.openai import OpenAI as fOpenAI
-from trulens_eval import Feedback, LiteLLM, Tru, TruChain, Huggingface
+from trulens_eval import Tru
 from dotenv import load_dotenv
 import google.generativeai as palm
 
@@ -12,7 +11,6 @@ load_dotenv()
 
 # Configure Palm
 palm.configure(api_key=st.secrets.get("GENERATIVE_AI_API_KEY", ""))
-
 
 # Old English Teacher Chat
 
@@ -45,48 +43,27 @@ if prompt := st.text_area("What is up?"):
             top_k=40,
             top_p=0.95,
         ).last
-        # Simulate stream of response with milliseconds delay
-        for chunk in teacher_response.split():
-            full_response += chunk + " "
-            time.sleep(0.05)
-            # Add a blinking cursor to simulate typing
-            message_placeholder.markdown(full_response + "▌")
-        message_placeholder.markdown(full_response)
-    # Add assistant response to chat history
-    st.session_state.messages.append({"role": "teacher", "content": full_response})
 
- # tru.run_dashboard()
-
-    def ask_question(self, user_msg) -> str:
-        rec = None
-        with self.chain_recorder as recorder:
-            resp = self.conversation({"question": user_msg})
-            rec = recorder.get()
-
-        pii_detected = False
-        conciseness = 0.0
-        if rec:
-            for feedback_future in  as_completed(rec.feedback_results):
-                feedback, feedback_result = feedback_future.result()
-                
-                print(f"feedback name: {feedback.name}\n result: {feedback_result.result}")
-
-                if feedback.name == "pii_detection" and feedback_result.result != None:
-                    pii_detected = True
-                
-                if feedback.name == "conciseness":
-                    conciseness = float(feedback_result.result)
-        
-        if pii_detected:
-            return "I'm sorry but personal information was detected in your question. Please remove any personal information."
-        elif conciseness < 0.5:
-            return "Please restate your question in a way the AI can understand and give a better answer"
+        if teacher_response:
+            # Simulate stream of response with milliseconds delay
+            for chunk in teacher_response.split():
+                full_response += chunk + " "
+                time.sleep(0.05)
+                # Add a blinking cursor to simulate typing
+                message_placeholder.markdown(full_response + "▌")
+            message_placeholder.markdown(full_response)
         else:
-            return resp["answer"]
-# Display Trulens leaderboard
-st.write(tru.get_leaderboard(app_ids=["RAG v1"]))
+            st.warning("Sorry, I couldn't generate a response at the moment. Please try again.")
+
+        # Add assistant response to chat history
+        st.session_state.messages.append({"role": "teacher", "content": full_response})
 
 # Trulens dashboard
-if st.button("Open TruLens Dashboard", key="trulens_dashboard"):
-    tru.run_dashboard()
+if st.button("Open TruLens Dashboard in New Tab", key="trulens_dashboard"):
+    tru_dashboard_url = tru.get_dashboard_url()
+    st.write(f'<a href="{tru_dashboard_url}" target="_blank">Open TruLens Dashboard</a>', unsafe_allow_html=True)
 
+# Add an "Enter" button to submit the user's input
+if st.button("Enter"):
+    # Handle the submission logic here, if needed
+    pass
